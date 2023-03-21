@@ -1,0 +1,26 @@
+﻿@model WebApplication1.Models.FirstLogin
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FirstLogin</title>
+</head>
+<body>
+    <div>
+        <form action="/Student/FirstLogin" method="POST">
+
+            <input type="password" name="mdp" placeholder="Entrez Mot De Passe actuel" />
+            <input type="password" name="newMdp" placeholder="Entrez Nouveau Mot De Passe" />
+            <input type="password" name="CnewMdp" placeholder="Confirmer Mot De Passe" />
+            <button type="submit" id="btnSub" >Save</button>
+            <label id="lblErr" >@ViewBag.err</label>
+
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="prj1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=prj1;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="prj1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.videocours" Member="videocours">
+    <Type Name="videocour">
+      <Column Name="IdVideoCours" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdCours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdVideo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="video_videocour" Member="video" ThisKey="IdVideo" OtherKey="IdVideo" Type="video" IsForeignKey="true" />
+      <Association Name="cour_videocour" Member="cour" ThisKey="IdCours" OtherKey="IdCours" Type="cour" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.video" Member="videos">
+    <Type Name="video">
+      <Column Name="IdVideo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[desc]" Member="desc" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="url" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="urlImgVideo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="video_videocour" Member="videocours" ThisKey="IdVideo" OtherKey="IdVideo" Type="videocour" />
+    </Type>
+  </Table>
+  <Table Name="dbo.prof" Member="profs">
+    <Type Name="prof">
+      <Column Name="IdProf" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="prof_cour" Member="cours" ThisKey="IdProf" OtherKey="IdProf" Type="cour" />
+      <Association Name="prof_profcour" Member="profcours" ThisKey="IdProf" OtherKey="IdProf" Type="profcour" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cours" Member="cours">
+    <Type Name="cour">
+      <Column Name="IdCours" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="niveduc" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="[desc]" Member="desc" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="image" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="IdProf" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="cour_videocour" Member="videocours" ThisKey="IdCours" OtherKey="IdCours" Type="videocour" />
+      <Association Name="cour_profcour" Member="profcours" ThisKey="IdCours" OtherKey="IdCours" Type="profcour" />
+      <Association Name="cour_file" Member="files" ThisKey="IdCours" OtherKey="IdCours" Type="file" />
+      <Association Name="prof_cour" Member="prof" ThisKey="IdProf" OtherKey="IdProf" Type="prof" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inscription" Member="inscriptions">
+    <Type Name="inscription">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="prenom" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="nivEduc" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.etudiant" Member="etudiants">
+    <Type Name="etudiant">
+      <Column Name="IdEtudiant" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="prenom" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="nivEduc" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="statutConn" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nivEduc" Member="nivEducs">
+    <Type Name="nivEduc">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nivEduc" Member="nivEduc1" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.profcour" Member="profcours">
+    <Type Name="profcour">
+      <Column Name="IdProfCours" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdCours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdProf" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="cour_profcour" Member="cour" ThisKey="IdCours" OtherKey="IdCours" Type="cour" IsForeignKey="true" />
+      <Association Name="prof_profcour" Member="prof" ThisKey="IdProf" OtherKey="IdProf" Type="prof" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[file]" Member="files">
+    <Type Name="file">
+      <Column Name="IdFile" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title_file" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="desc_file" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="path_file" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="public_file" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdCours" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="cour_file" Member="cour" ThisKey="IdCours" OtherKey="IdCours" Type="cour" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
